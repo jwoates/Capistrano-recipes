@@ -1,0 +1,62 @@
+# LOG FACILITY
+# The syslog facility that should be used for logging purposes.
+
+log_facility=daemon
+
+# PID FILE
+pid_file=/var/run/nrpe.pid
+
+# PORT NUMBER
+server_port=5666
+
+# SERVER ADDRESS
+# NOTE: This option is ignored if NRPE is running under either inetd or xinetd
+#server_address=127.0.0.1
+
+# NRPE USER
+nrpe_user=nagios
+
+# ALLOWED HOST ADDRESSES
+# NOTE: This option is ignored if NRPE is running under either inetd or xinetd
+allowed_hosts=127.0.0.1
+
+# COMMAND ARGUMENT PROCESSING
+dont_blame_nrpe=0
+
+# BASH COMMAND SUBTITUTION
+allow_bash_command_substitution=0
+
+# COMMAND PREFIX
+# command_prefix=/usr/bin/sudo
+
+# DEBUGGING OPTION
+debug=0
+
+# COMMAND TIMEOUT
+command_timeout=60
+
+
+# CONNECTION TIMEOUT
+connection_timeout=300
+
+
+# WEEK RANDOM SEED OPTION
+#allow_weak_random_seed=1
+
+
+# INCLUDE CONFIG FILE
+# This directive allows you to include definitions from an external config file.
+
+include=/usr/local/nagios/etc/nrpe_local.cfg
+
+# INCLUDE CONFIG DIRECTORY
+#include_dir=<somedirectory>
+#include_dir=<someotherdirectory>
+
+
+# The following examples use hardcoded command arguments...
+command[check_users]=/usr/local/nagios/libexec/check_users -w 5 -c 10
+command[check_load]=/usr/local/nagios/libexec/check_load -w 15,10,5 -c 30,25,20
+command[check_hda1]=/usr/local/nagios/libexec/check_disk -w 20% -c 10% -p /dev/hda1
+command[check_zombie_procs]=/usr/local/nagios/libexec/check_procs -w 5 -c 10 -s Z
+command[check_total_procs]=/usr/local/nagios/libexec/check_procs -w 150 -c 200

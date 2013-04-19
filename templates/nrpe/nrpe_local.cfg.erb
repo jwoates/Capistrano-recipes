@@ -1,0 +1,39 @@
+######################################
+# Do any local nrpe configuration here
+######################################
+
+
+command[check_users]=/usr/local/nagios/libexec/check_users -w 5 -c 10
+command[check_load]=/usr/local/nagios/libexec/check_load -w 15,10,5 -c 30,25,20
+command[check_hda1]=/usr/local/nagios/libexec/check_disk -w 20% -c 10% -p /dev/hda1
+command[check_zombie_procs]=/usr/local/nagios/libexec/check_procs -w 5 -c 10 -s Z
+command[check_total_procs]=/usr/local/nagios/libexec/check_procs -w 150 -c 200
+
+
+# The following examples allow user-supplied arguments and can
+# only be used if the NRPE daemon was compiled with support for
+# command arguments *AND* the dont_blame_nrpe directive in this
+# config file is set to '1'.  This poses a potential security risk, so
+# make sure you read the SECURITY file before doing this.
+
+
+#command[check_procs]=/usr/local/nagios/libexec/check_procs -w $ARG1$ -c $ARG2$ -s $ARG3$
+#command[check_ping]=/usr/local/nagios/libexec/check_ping -w $ARG1$ -c $ARG2$
+
+
+# check_nginx - Added by Sam
+# NEEDS ARGUMENTS
+command[check_nginxtest]=/usr/local/nagios/libexec/python check_nginx
+
+# swap
+command[check_swap]=/usr/local/nagios/libexec/check_swap -w 20% -c 10%
+
+# http
+#command[check_http]=/usr/local/nagios/libexec/check_http -H 127.0.0.1 -w $ARG1$ -c $ARG2$
+command[check_http]=/usr/local/nagios/libexec/check_http -H 127.0.0.1 -w 5 -c 10
+
+# Nginx
+command[check_nginx]=/usr/local/nagios/libexec/check_procs -w 5:10 -c 0:24 -C nginx -s Ss
+
+# NGINX Status Check
+command[check_nginx_status]=/usr/local/nagios/libexec/check_nginx.sh -H 127.0.0.1 -P 80 -p /var/run -n nginx.pid -s status
